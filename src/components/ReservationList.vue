@@ -34,8 +34,7 @@ export default {
   },
   methods: {
     async getReservations() {
-      const response = await fetch( this.apiUrl + "/reservationview"
-      );
+      const response = await fetch( this.apiUrl + "/reservationview" );
       this.reservations = await response.json();
       console.log(response);
     },
