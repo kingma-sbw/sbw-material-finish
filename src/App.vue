@@ -1,5 +1,33 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useUserStore } from "@/stores/UserStore.js"
+
+
+const props = defineProps({
+
+  fullname: {
+    type: String,
+    required: true,
+  },
+  objectId: {
+    type: String,
+    required: true,
+  },
+  userId: {
+    type: String,
+    require: true
+  }
+
+});
+console.log (props.fullname);
+
+const userStore = useUserStore();
+userStore.fullname = props.fullname
+userStore.userId = props.userId
+userStore.objectId = props.objectId
+
+
+
 </script>
 
 <template>
@@ -22,7 +50,9 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 
 nav {
-  padding: 30px;
+  
+  display: flex;
+  justify-content: space-around;
 }
 
 nav a {

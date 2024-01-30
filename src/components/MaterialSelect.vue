@@ -1,6 +1,6 @@
 <template>
   <label for="material">Gerät</label>
-  <select id="material" v-model="store.equipment_id">
+  <select id="material" v-model="selectedStore.equipment_id">
     <option v-for="equip in equipment" :key="equip.ID" :value="equip.ID">
       {{ equip.Name}} / {{ equip.Number }}
     </option>
@@ -9,7 +9,8 @@
 
 
 <script setup>
-  import { store } from "@/store";
+  import { useSelectedStore } from "@/stores/SelectedStore.js";
+  const selectedStore = useSelectedStore();
 </script>
 <script>
 export default {
@@ -25,8 +26,7 @@ export default {
   },
   methods: {
     async getEquipment() {
-      const response = await fetch(
-        "https://projects.sbw.media/equipment"
+      const response = await fetch( this.apiUrl + "/equipment"
       );
       this.equipment = await response.json();
     }

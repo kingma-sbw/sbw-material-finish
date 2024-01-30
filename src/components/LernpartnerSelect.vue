@@ -1,6 +1,6 @@
 <template>
   <label for="lernpartner">Lernpartener</label>
-  <select id="lernpartner" v-model="store.lernpartner_id">
+  <select id="lernpartner" v-model="selectedStore.lernpartner_id">
     <option v-for="LP in LPs" :key="LP.ID" :value="LP.ID">
       {{ LP.Fullname }}
     </option>
@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { store } from "@/store";
+import { useSelectedStore } from "@/stores/SelectedStore.js";
+const selectedStore = useSelectedStore();
 </script>
 
 <script>
@@ -25,9 +26,7 @@ export default {
   },
   methods: {
     async getLPs() {
-      const response = await fetch(
-        "https://projects.sbw.media/student"
-      );
+      const response = await fetch( this.apiUrl + "/student" );
       this.LPs = await response.json();
     }
   },

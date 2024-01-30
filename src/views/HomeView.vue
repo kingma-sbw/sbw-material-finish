@@ -14,9 +14,11 @@
   </div>
 </template>
 
+<script setup>
+import { useSelectedStore } from '@/stores/SelectedStore.js';
+</script>
 <script>
-// @ is an alias to /src
-import { store } from '@/store';
+
 import LernpartnerSelect from '@/components/LernpartnerSelect.vue'
 import MaterialSelect from '@/components/MaterialSelect.vue'
 export default {
@@ -25,6 +27,7 @@ export default {
     return {
       fromDate: null,
       toDate: null,
+      selectedStore: useSelectedStore()
     };
   },
   components: {
@@ -34,12 +37,12 @@ export default {
   methods: {
     async doReserve() {
       const payload = {
-        StudentID: store.lernpartner_id,
-        EquipmentID: store.equipment_id,
+        StudentID: this.selectedStore.lernpartner_id,
+        EquipmentID: this.selectedStore.equipment_id,
         Start: this.fromDate,
         End: this.toDate,
       };
-      const response = await fetch('https://projects.sbw.media/equipment_reservation', {
+      const response = await fetch(this.apiUrl + '/equipment_reservation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

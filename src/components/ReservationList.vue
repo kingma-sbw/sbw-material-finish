@@ -34,15 +34,13 @@ export default {
   },
   methods: {
     async getReservations() {
-      const response = await fetch(
-        "https://projects.sbw.media/reservationview"
+      const response = await fetch( this.apiUrl + "/reservationview"
       );
       this.reservations = await response.json();
       console.log(response);
     },
     async deleteReservation(resId) {
-      const response = await fetch(
-        'https://projects.sbw.media/equipment_reservation/'+resId,
+      const response = await fetch( this.apiUrl + '/equipment_reservation/'+resId,
         { method: "DELETE" }
       );
       const resultat = await response.json();
@@ -58,7 +56,7 @@ export default {
 <style scoped lang="sass">
 table
   border-collapse: collapse
-  margin: 0 auto;
+  margin: 0 auto
 
   td
     text-align: left
